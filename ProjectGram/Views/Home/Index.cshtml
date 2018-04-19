@@ -1,0 +1,113 @@
+﻿@model ProjectGram.Models.UserViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="perfil-container">
+            <div class="foto">
+
+                <img  data-toggle="modal" data-target="#modal_perfil" src="@Model.User.Avatar" />
+            </div>
+            <div class="informacion">
+                <h3>@Model.User.Nombre @Model.User.Apellido</h3>
+              
+                <p>Seguidores: <span>20</span></p>
+                <p>Siguiendo: <span>10</span></p>
+                <p>Publicaciones: <span>15</span></p>
+            </div>
+        </div>
+        <a href="@Url.Action("Index","Foto")" class="btn btn-default">
+            <i class="glyphicon glyphicon-plus-sign"></i>
+            Agregar nuevas fotos
+        </a>
+        <div class="modal fade" id="modal_perfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <form asp-controller="Foto" asp-action="FotoPerfil" method="POST" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Cambiar foto de perfil</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="opciones_fotos">
+                                <li>Eliminar foto actual</li>
+                                <li id="boton_foto_load">Cargar una Foto</li>
+                            </ul>
+                        </div>
+                        <input type="file"name="formFile" class="hidden" id="foto_load"/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr />
+<div class="row">
+    <div class="col-sm-2">
+
+        <div class="card" style="width: 22rem;">
+            <img data-toggle="modal" data-target="#exampleModal" class="card-img-top hover" style="width:292px; height:292px;" src="~/images/the_killers_name_letters_font_background_2566_1366x768.jpg" />
+            <div class="card-body">
+               
+                <button type="button" data-toggle="modal" data-target="#modal_borrar" class="btn btn-outline-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                <button type="button" data-toggle="modal" data-target="#modal_borrar" class="btn btn-outline-dark"><i class="glyphicon glyphicon-edit"></i></button>
+            </div>
+        </div>
+        <div class="modal fade" id="modal_borrar" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Alerta!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta seguro de borrar esta foto?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-informacion">
+                            <img class="perfil-miniatura" src="~/images/the_killers_name_letters_font_background_2566_1366x768.jpg" />
+                            <h3>Nelson Jhonas Veras</h3>
+                        </div>
+
+                        <h4 class="modal-title" id="exampleModalLabel">Foto de The Killers</h4>
+                        <p>16/04/2018</p>
+
+                    </div>
+                    <div class="modal-body">
+                        <img class="picture" src="~/images/the_killers_name_letters_font_background_2566_1366x768.jpg" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

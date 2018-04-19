@@ -1,0 +1,75 @@
+﻿
+.perfil-container {
+    display: flex;
+    margin: 5em auto;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.foto {
+    width: 155px;
+    height: 155px;
+ 
+    margin-right: 5px;
+    
+}
+
+    .foto img {
+        width: 100%;
+        height: 100%;
+        border-radius:50%;
+        cursor:pointer;
+    }
+
+.picture {
+    width: 100%;
+    height: 100%;
+}
+
+.perfil-miniatura {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #eee;
+}
+
+.modal-informacion {
+    display: flex;
+    align-items: center;
+}
+
+    .modal-informacion h3 {
+        margin-left: 3px;
+        vertical-align: top;
+    }
+
+.notificacion-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.hover {
+    width:100%;
+    height:100%;
+    background-color: rgba(36, 44, 44, 0.3);
+    z-index:1000;
+}
+
+.opciones_fotos{
+    margin:0 auto;
+    list-style:none;
+    width:100%;
+}
+
+.opciones_fotos li{
+    color:#808080;
+    border:1px solid #eee;
+    padding:10px;
+}
+
+    .opciones_fotos li:hover {
+        color:white;
+        cursor: pointer;
+        background-color: rgba(36, 44, 44, 0.3);
+    }

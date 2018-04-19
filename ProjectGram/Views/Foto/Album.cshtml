@@ -1,0 +1,124 @@
+﻿@model ProjectGram.Models.UserViewModel
+@{
+    ViewData["Title"] = "Album";
+}
+
+<h2>Album</h2>
+
+<div class="row">
+    @Html.DisplayFor(x => x.Mensaje);
+    <div class="col-lg-10 col-center">
+        <form asp-action="CreateAlbum" asp-controller="Foto" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Nombre del Album</label>
+                    <input required asp-for="Album.Nombre" type="text" class="form-control" id="inputEmail4" placeholder="Ej. Mi Viaje a Paris">
+                    <span asp-validation-for="Album.Nombre"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Descripcion</label>
+                    <input asp-for="Album.Descripcion" type="text" class="form-control" placeholder="Descripcion">
+                    <span asp-validation-for="Album.Descripcion"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Nombre</label>
+                    <input required name="formFile" type="file" class="form-control" id="inputCity">
+
+                </div>
+
+
+            </div>
+            <br />
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary btn-lg">Crear</button>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>
+<h3>Tus Albumes</h3>
+<div class="row">
+    @{
+        if(Model.listaAlbumes.Count() == 0)
+        {
+            <p>Ningun album</p>
+
+        }
+        else
+        {
+
+            foreach(var album in Model.listaAlbumes)
+            {
+
+
+
+
+
+        <div class="col-sm-4">
+
+            <div class="card" style="width: 22rem;">
+                <img data-toggle="modal" data-target="#exampleModal_@album.Id" class="card-img-top hover" style="width:292px; height:292px;" src="@album.Portada" />
+                <div class="card-body">
+                    <h4>@album.Nombre</h4>
+                    <button type="button" data-toggle="modal" data-target="#modal_borrar" class="btn btn-outline-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                    <button type="button" data-toggle="modal" data-target="#modal_borrar" class="btn btn-outline-dark"><i class="glyphicon glyphicon-edit"></i></button>
+                </div>
+            </div>
+            <div class="modal fade" id="modal_borrar" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Alerta!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>¿Esta seguro de borrar esta foto?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="exampleModal_@album.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-informacion">
+                                <img class="perfil-miniatura" src="@album.User.Avatar" />
+                                <h3>Nelson Jhonas Veras</h3>
+                            </div>
+
+                            <h4 class="modal-title" id="exampleModalLabel">Foto de The Killers</h4>
+                            <p>16/04/2018</p>
+
+                        </div>
+                        <div class="modal-body">
+                            <img class="picture" src="@album.Portada" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            }
+        }
+    }
+</div>
+
+
