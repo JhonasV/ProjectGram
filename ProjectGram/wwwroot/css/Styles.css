@@ -8,23 +8,32 @@
 }
 
 .foto {
+    position:relative;
     width: 155px;
     height: 155px;
- 
+    
     margin-right: 5px;
     
 }
 
-    .foto img {
+    .foto #foto_perfil_actualizador {
         width: 100%;
         height: 100%;
-        border-radius:50%;
-        cursor:pointer;
+        border-radius: 50%;
+        cursor: pointer;
     }
 
+#foto_perfil_loader {
+    position:absolute;
+    width:100px;
+    height:100px;
+    top:30px;
+    left:30px;
+}
+
 .picture {
-    width: 100%;
-    height: 100%;
+    width: 40em;
+    height: 35em;
 }
 
 .perfil-miniatura {
@@ -69,7 +78,21 @@
 }
 
     .opciones_fotos li:hover {
-        color:white;
+        color: white;
         cursor: pointer;
         background-color: rgba(36, 44, 44, 0.3);
     }
+
+.modal-grande {
+    width: 90%;
+    height:100%;
+}
+
+.modal-foto{
+    width:60%;
+    height:60%;
+}
+
+.datos{
+    border:5px solid #4cff00;
+}

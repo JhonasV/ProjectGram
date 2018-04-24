@@ -32,5 +32,8 @@ namespace ProjectGram.Models
         public DateTime FNacimiento { get; set; }
 
         public string Avatar { get; set; }
+
+  
+        public List<Foto> Foto { get; set; }
     }
 }

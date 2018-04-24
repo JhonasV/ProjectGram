@@ -12,7 +12,7 @@ namespace ProjectGram.Models.Data
 
         public DbSet<User>  Usuario { get; set; }
         public DbSet<Foto> Foto { get; set; }
-        public DbSet<Album> Album { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
 

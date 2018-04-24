@@ -1,4 +1,5 @@
-﻿using ProjectGram.Models.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectGram.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +64,7 @@ namespace ProjectGram.Models
                 catch (Exception e)
                 {
 
-                    throw;
+                    e.ToString();
                 }
             }
             return detalles;
@@ -76,7 +77,7 @@ namespace ProjectGram.Models
                 
                 try
                 {
-                    detalles = db.Usuario.Where(x => x.Id == id).FirstOrDefault();
+                    detalles = db.Usuario.Where(x => x.Id == id).Include(x=> x.Foto).FirstOrDefault();
                 }
                 catch (Exception e)
                 {

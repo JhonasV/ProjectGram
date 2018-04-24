@@ -10,8 +10,6 @@ namespace ProjectGram.Models
         public User User { get; set; }
         public string Mensaje { get; set; }
         public string RegistradoMessage { get; set; }
-
-        public Album Album { get; set; }
-        public List<Album> listaAlbumes { get; set; }
+        public Foto Foto { get; set; }
     }
 }

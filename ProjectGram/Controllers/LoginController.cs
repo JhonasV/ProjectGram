@@ -29,6 +29,7 @@ namespace ProjectGram.Controllers
             if (exito == 3)
             {
                 model.User = null;
+                model.Mensaje = "";
                 model.Mensaje = "Se ha registrado exitosamente";
                 return View("Index", model);
             }
@@ -36,21 +37,21 @@ namespace ProjectGram.Controllers
             {
                 model.User = user;
                 model.User.Password = "";
-
+                model.Mensaje = "";
                 model.Mensaje = "El Email introducido ya está en uso";
                 return View("Registro", model);
             }else if(exito == 1)
             {
                 model.User = user;
                 model.User.Password = "";
-
+                model.Mensaje = "";
                 model.Mensaje = "El NickName introducido ya está en uso";
                 return View("Registro", model);
             }else if(exito == 2)
             {
                 model.User = user;
                 model.User.Password = "";
-
+                model.Mensaje = "";
                 model.Mensaje = "El NickName y el Email introducido ya están en uso";
                 return View("Registro", model);
             }

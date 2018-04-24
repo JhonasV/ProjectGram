@@ -27,9 +27,6 @@ namespace ProjectGram.Controllers
             return RedirectToAction("Index", "Foto");
         }
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+   
     }
 }

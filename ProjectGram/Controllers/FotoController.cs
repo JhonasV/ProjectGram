@@ -21,17 +21,17 @@ namespace ProjectGram.Controllers
             {
                 Id = id
             };
-            model.listaAlbumes = dao.GetAlbumsById(user);
+           
             model.User = new LoginDAO().GetUserById(id);
             return View("Album", model);
         }
 
 
 
-        public IActionResult FotoPerfil(IFormFile formFile)
+        public JsonResult FotoPerfil(IFormFile formFile)
         {
             string photoName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
-
+            bool exito = false;
             var imagePath = "wwwroot/images/" + photoName;
             if(formFile != null)
             {
@@ -48,31 +48,52 @@ namespace ProjectGram.Controllers
                 };
 
                 dao.UpdateProfilePicture(avatar);
+                return Json(imagePathBd);
             }
-            return RedirectToAction("Index", "Home");
+            return Json(exito);
+            
         }
 
-        public IActionResult CreateAlbum(Album album, IFormFile formFile)
+        public JsonResult EliminarFotoPerfil(int userId)
         {
-            AlbumViewModel model = new AlbumViewModel();
+            bool exito = dao.EliminarFotoPerfil(userId);
+            return Json(exito);
+        }
+
+        public JsonResult BorrarFotoAlbum(int fotoId)
+        {
+            bool exito = dao.BorrarFotoAlbum(fotoId);
+
+            return Json(exito);
+        }
+        public JsonResult CreateAlbum(Foto foto)
+        {
+           
             string photoName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
             string photoPath = "wwwroot/images/" + photoName;
-            if(formFile != null)
+            bool exito = false;
+            if(foto.Img != null && foto.Descripcion != null)
             {
                 using(var stream = new FileStream(photoPath, FileMode.Create))
                 {
-                    formFile.CopyTo(stream);
+                    foto.Img.CopyTo(stream);
                 }
 
                 string photoPathBd = "/images/" + photoName;
-                album.Portada = photoPathBd;
-                album.UserId = (int)HttpContext.Session.GetInt32("id");
-                album.Fecha = DateTime.Now;
-                model.Mensaje = dao.CreateAlbum(album);
-
+                foto.Ruta = photoPathBd;
+                
+                exito = dao.FotoUploader(foto);
+                return Json(exito);
             }
             
-            return RedirectToAction("Index", model);
+            return Json(exito);
         }
+
+        public PartialViewResult MostrarFotos(int id)
+        {
+            return PartialView("FotoViewer", dao.GetAllFotos(id));
+        }
+
+
     }
 }

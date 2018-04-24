@@ -12,7 +12,8 @@ namespace ProjectGram.Models
 
         public void UpdateProfilePicture(User u)
         {
-            using(GramDbContext db = new GramDbContext())
+            
+            using (GramDbContext db = new GramDbContext())
             {
                 try
                 {
@@ -23,7 +24,7 @@ namespace ProjectGram.Models
                     entry.Property(e => e.Avatar).IsModified = true;
 
                     db.SaveChanges();
-                    
+
                 }
                 catch (Exception e)
                 {
@@ -33,16 +34,16 @@ namespace ProjectGram.Models
             }
         }
 
-        public string CreateAlbum(Album album)
+        public bool FotoUploader(Foto foto)
         {
-            string mensaje = "Error al crear el album";
+            bool exito = false;
             using(GramDbContext db = new GramDbContext())
             {
                 try
                 {
-                    db.Album.Add(album);
+                    db.Foto.Add(foto);
                     db.SaveChanges();
-                    mensaje = "Album creado satisfactoriamente";
+                    exito = true;
                 }
                 catch (Exception e)
                 {
@@ -50,25 +51,81 @@ namespace ProjectGram.Models
                     e.ToString();
                 }
             }
-            return mensaje;
+            return exito;
         }
 
-        public List<Album> GetAlbumsById(User user)
+
+        public bool EliminarFotoPerfil(int userId)
         {
-            List<Album> lista = new List<Album>();
-            using(GramDbContext db = new GramDbContext())
+            bool exito = false;
+            using (GramDbContext db = new GramDbContext())
             {
                 try
                 {
-                    lista = db.Album.Where(x => x.UserId == user.Id).Include(x=> x.User).ToList();
+                    User u = new User();
+                    u = db.Usuario.Where(x => x.Id == userId).FirstOrDefault();
+                    u.Avatar = "/images/avatar.jpeg";
+
+                    db.Usuario.Attach(u);
+
+                    var entry = db.Entry(u);
+
+                    entry.Property(e => e.Avatar).IsModified = true;
+
+                    db.SaveChanges();
+                    exito = true;
                 }
                 catch (Exception e)
                 {
 
                     e.ToString();
                 }
+            }
+            return exito;
+        }
+
+        public bool BorrarFotoAlbum(int fotoId)
+        {
+            bool exito = false;
+
+            using(GramDbContext db = new GramDbContext())
+            {
+
+                try
+                {
+                    Foto detalles = db.Foto.Where(x => x.Id == fotoId).FirstOrDefault();
+                    db.Foto.Remove(detalles);
+                    db.SaveChanges();
+                    exito = true;
+                }
+                catch (Exception e)
+                {
+
+                    e.ToString();
+                }
+               
+            }
+            return exito;
+        }
+
+        public List<Foto> GetAllFotos(int id)
+        {
+            List<Foto> lista = new List<Foto>();
+            using(GramDbContext db = new GramDbContext())
+            {
+                try
+                {
+                    lista = db.Foto.Where(x => x.UserId == id).ToList();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
             }
             return lista;
         }
+
     }
 }

@@ -20,34 +20,10 @@ namespace ProjectGram.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ProjectGram.Models.Album", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Descripcion");
-
-                    b.Property<DateTime>("Fecha");
-
-                    b.Property<string>("Nombre");
-
-                    b.Property<string>("Portada");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Album");
-                });
-
             modelBuilder.Entity("ProjectGram.Models.Foto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AlbumId");
 
                     b.Property<string>("Descripcion");
 
@@ -55,9 +31,11 @@ namespace ProjectGram.Migrations
 
                     b.Property<string>("Ruta");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AlbumId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Foto");
                 });
@@ -93,19 +71,11 @@ namespace ProjectGram.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("ProjectGram.Models.Album", b =>
-                {
-                    b.HasOne("ProjectGram.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ProjectGram.Models.Foto", b =>
                 {
-                    b.HasOne("ProjectGram.Models.Album", "Album")
-                        .WithMany("Fotos")
-                        .HasForeignKey("AlbumId")
+                    b.HasOne("ProjectGram.Models.User")
+                        .WithMany("Foto")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
