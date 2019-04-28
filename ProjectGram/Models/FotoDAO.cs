@@ -10,29 +10,29 @@ namespace ProjectGram.Models
     public class FotoDAO
     {
 
-        public void UpdateProfilePicture(User u)
-        {
+        //public void UpdateProfilePicture(User u)
+        //{
             
-            using (GramDbContext db = new GramDbContext())
-            {
-                try
-                {
-                    db.Usuario.Attach(u);
+        //    using (GramDbContext db = new GramDbContext())
+        //    {
+        //        try
+        //        {
+        //            db.Usuario.Attach(u);
 
-                    var entry = db.Entry(u);
+        //            var entry = db.Entry(u);
 
-                    entry.Property(e => e.Avatar).IsModified = true;
+        //            entry.Property(e => e.Avatar).IsModified = true;
 
-                    db.SaveChanges();
+        //            db.SaveChanges();
 
-                }
-                catch (Exception e)
-                {
+        //        }
+        //        catch (Exception e)
+        //        {
 
-                    e.ToString();
-                }
-            }
-        }
+        //            e.ToString();
+        //        }
+        //    }
+        //}
 
         public bool FotoUploader(Foto foto)
         {
@@ -55,34 +55,34 @@ namespace ProjectGram.Models
         }
 
 
-        public bool EliminarFotoPerfil(int userId)
-        {
-            bool exito = false;
-            using (GramDbContext db = new GramDbContext())
-            {
-                try
-                {
-                    User u = new User();
-                    u = db.Usuario.Where(x => x.Id == userId).FirstOrDefault();
-                    u.Avatar = "/images/avatar.jpeg";
+        //public bool EliminarFotoPerfil(int userId)
+        //{
+        //    bool exito = false;
+        //    using (GramDbContext db = new GramDbContext())
+        //    {
+        //        try
+        //        {
+        //            User u = new User();
+        //            u = db.Usuario.Where(x => x.Id == userId).FirstOrDefault();
+        //            u.Avatar = "/images/avatar.jpeg";
 
-                    db.Usuario.Attach(u);
+        //            db.Usuario.Attach(u);
 
-                    var entry = db.Entry(u);
+        //            var entry = db.Entry(u);
 
-                    entry.Property(e => e.Avatar).IsModified = true;
+        //            entry.Property(e => e.Avatar).IsModified = true;
 
-                    db.SaveChanges();
-                    exito = true;
-                }
-                catch (Exception e)
-                {
+        //            db.SaveChanges();
+        //            exito = true;
+        //        }
+        //        catch (Exception e)
+        //        {
 
-                    e.ToString();
-                }
-            }
-            return exito;
-        }
+        //            e.ToString();
+        //        }
+        //    }
+        //    return exito;
+        //}
 
         public bool BorrarFotoAlbum(int fotoId)
         {
@@ -108,24 +108,82 @@ namespace ProjectGram.Models
             return exito;
         }
 
-        public List<Foto> GetAllFotos(int id)
+        //public List<Foto> GetAllFotosByUserId(String id)
+        //{
+        //    List<Foto> lista = new List<Foto>();
+        //    using(GramDbContext db = new GramDbContext())
+        //    {
+        //        try
+        //        {
+        //            lista = db.Foto.Where(x => x.ApplicationUserId == id).ToList();
+        //        }
+        //        catch (Exception)
+        //        {
+
+        //            throw;
+        //        }
+                
+        //    }
+        //    return lista;
+        //}
+
+        //public List<Foto> GetAllFotos()
+        //{
+        //    List<Foto> detalles = new List<Foto>();
+        //    using (GramDbContext db = new GramDbContext())
+        //    {
+
+        //        try
+        //        {
+        //            detalles = db.Foto.Include(x => x.User).OrderByDescending(x=> x.Fecha).ToList();
+        //        }
+        //        catch (Exception e)
+        //        {
+
+        //            e.ToString();
+        //        }
+        //    }
+        //    return detalles;
+
+        //}
+
+        public bool AddComment(Comment comment)
         {
-            List<Foto> lista = new List<Foto>();
             using(GramDbContext db = new GramDbContext())
             {
+              
                 try
                 {
-                    lista = db.Foto.Where(x => x.UserId == id).ToList();
+                    db.Comment.Add(comment);
+                    db.SaveChanges();
+                    return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
-                    throw;
+                    e.ToString();
                 }
-                
             }
-            return lista;
+            return false;
         }
+        public List<Comment> GetAllComments()
+        {
+            List<Comment> detalles = new List<Comment>();
+            using (GramDbContext db = new GramDbContext())
+            {
 
+                try
+                {
+                    detalles = db.Comment.Include(x=> x.User).Include(x=> x.Foto).ToList();
+                }
+                catch (Exception e)
+                {
+
+                    e.ToString();
+                }
+            }
+            return detalles;
+
+        }
     }
 }

@@ -16,12 +16,17 @@ namespace ProjectGram.Models
         public DateTime Fecha { get; set; }
         public string Ruta { get; set; }
 
-        public int UserId { get; set; }
-
+        //public int UserId { get; set; }
+        public String ApplicationUserId { get; set; }
         [NotMapped]
         [Required(ErrorMessage = "La foto es obligatoria")]
         public IFormFile Img { get; set; }
 
-        public User User { get; set; }
+        //public User User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        public List<Comment> Comments { get; set; }
+        public List<Likes> Likes { get; set; }
+        public List<Archive> Archives { get; set; }
+
     }
 }

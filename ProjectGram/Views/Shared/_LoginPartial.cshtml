@@ -1,0 +1,74 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@{
+    if (!SignInManager.IsSignedIn(User))
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-brand">ProjectGram</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Ingresar</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Register">Registrarse</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    }
+    else
+    {
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Actividad" class="navbar-brand">ProjectGram</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+
+                    </ul>
+
+                    <div class="notificacion-btn">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="navbar-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="glyphicon glyphicon-bell"></i>
+                                    Notificaciones <span class="badge notification-flag badge-light"></span>
+                                </a>         
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Logout", "Account")">
+                                    <i class="glyphicon glyphicon-log-out"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    }
+}

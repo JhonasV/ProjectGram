@@ -35,5 +35,9 @@ namespace ProjectGram.Models
 
   
         public List<Foto> Foto { get; set; }
+        public List<Follows> Follows { get; set; }
+        public List<Followed> FollowedList { get; set; }
+        public List<Archive> Archives { get; set; }
+
     }
 }

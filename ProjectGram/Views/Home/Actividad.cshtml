@@ -1,0 +1,11 @@
+﻿@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Actividad";
+    var currentUser = await UserManager.GetUserAsync(User);
+}
+
+
+<body class="actividad-profile">
+    <div id="actividad"></div>
+    <input type="hidden" id="actividad_user" value="@currentUser.Id " />
+</body>

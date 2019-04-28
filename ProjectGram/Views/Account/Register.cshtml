@@ -1,0 +1,80 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<style>
+    .registerForm_wrapper{
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom:5em;
+    }
+
+    .btn{
+        margin-left:18px;
+    }
+
+</style>
+
+<h2>Registro</h2>
+
+<div class="row registerForm_wrapper">
+    
+    <div class="col-lg-10 col-center">
+        <form asp-action="Register" asp-controller="Account" method="POST">
+            <div class="form-row">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input required asp-for="Email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">NickName</label>
+                    <input required asp-for="UserName" type="text" class="form-control" id="inputCity" placeholder="NickName">
+                    <span asp-validation-for="UserName"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Nombre</label>
+                    <input required asp-for="Name" type="text" class="form-control" id="inputCity" placeholder="Nombre">
+                    <span asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Apellido</label>
+                    <input required asp-for="LastName" type="text" class="form-control" id="inputCity" placeholder="Apellido">
+                    <span asp-validation-for="LastName"></span>
+                </div>
+               
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Fecha de Nacimiento</label>
+                    <input required asp-for="BirthDay" type="date" class="form-control" id="inputCity">
+                    <span asp-validation-for="BirthDay"></span>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                    <span asp-validation-for="Password"></span>
+                </div>
+            </div> 
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password Confirmation</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+
+            </div>
+           @*@Html.DisplayFor(x => x.s)*@
+            
+        </form>
+    </div>
+</div>
+

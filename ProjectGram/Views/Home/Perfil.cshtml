@@ -1,0 +1,60 @@
+﻿@model ProjectGram.Models.UserViewModel
+@{
+    ViewData["Title"] = "Perfil";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="perfil-container">
+            <div class="foto">
+
+                <img  id="foto_perfil_actualizador" src="@Model.ApplcationUserSecond.Avatar" />
+
+
+            </div>
+            <div class="informacion">
+                <h3>@Model.ApplcationUserSecond.Name @Model.ApplcationUserSecond.LastName</h3>
+                <div id="followButton_container">
+                @{ 
+                    if (Model.isFollow)
+                    {
+                        <form id="Follow-form" asp-controller="Social" asp-action="Follow" method="post">
+                            <input type="hidden" asp-for="Follows.ApplicationUserId" value="@Model.ApplicationUser.Id" />
+                            <input type="hidden" asp-for="Follows.Followed.ApplicationUserId" value="@Model.ApplcationUserSecond.Id" />
+                            <button id="btn-follow" type="submit" class="btn btn-danger">
+                                <i id="btn-follow-icon" class="glyphicon glyphicon-check"></i> Dejar de Seguir
+                            </button>
+                        </form>
+
+                    }
+                    else
+                    {
+                         <form id="Follow-form" asp-controller="Social" asp-action="Follow" method="post">
+                            <input type="hidden" asp-for="Follows.ApplicationUserId" value="@Model.ApplicationUser.Id" />
+                            <input type="hidden" asp-for="Follows.Followed.ApplicationUserId" value="@Model.ApplcationUserSecond.Id" />
+                            <button id="btn-follow" type="submit" class="btn btn-primary">
+                                <i id="btn-follow-icon" class="glyphicon glyphicon-plus-sign"></i> Seguir
+                            </button>
+                        </form>
+
+                    }
+                }
+               </div>
+                <p>Seguidores: <span id="followedCount">@Model.ApplcationUserSecond.FollowedList.Count()</span></p>
+                <p>Siguiendo: <span>@Model.ApplcationUserSecond.Follows.Count()</span></p>
+                <p>Publicaciones: <span>@Model.ApplcationUserSecond.Foto.Count()</span></p>
+            </div>
+        </div>
+
+
+       
+    </div>
+
+</div>
+<hr />
+<input type="hidden" id="followId" value="@Model.ApplicationUser.Id" />
+<input type="hidden" id="userId" value="@Model.ApplcationUserSecond.Id" />
+<div id="cargar_fotos">
+
+</div>
+

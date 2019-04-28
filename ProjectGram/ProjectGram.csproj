@@ -9,17 +9,25 @@
     <Compile Remove="Migrations\20180419031355_foto_album_2doIntento.Designer.cs" />
     <Compile Remove="Migrations\20180420045806_user_fotos_album.cs" />
     <Compile Remove="Migrations\20180420045806_user_fotos_album.Designer.cs" />
+    <Compile Remove="Migrations\20180429034413_follows-followed.cs" />
+    <Compile Remove="Migrations\20180429034413_follows-followed.Designer.cs" />
+    <Compile Remove="Migrations\20180429034715_follows-followed.cs" />
+    <Compile Remove="Migrations\20180429034715_follows-followed.Designer.cs" />
+    <Compile Remove="Migrations\20180527174938_begin.cs" />
+    <Compile Remove="Migrations\20180527174938_begin.Designer.cs" />
+    <Compile Remove="Migrations\20190420175710_identityServerAddedFollowBack.cs" />
+    <Compile Remove="Migrations\20190420175710_identityServerAddedFollowBack.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Bower" Version="1.3.11" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="glyphicon" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.SignalR.JS" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
     <PackageReference Include="SweetAlert" Version="1.0.0" />
 
     
@@ -27,6 +35,10 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Login\" />
   </ItemGroup>
 
 </Project>

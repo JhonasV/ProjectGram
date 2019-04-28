@@ -1,0 +1,159 @@
+﻿@model ActividadPartialViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<section class="container">
+    @{
+
+        foreach (Foto item in Model.Fotos)
+        {
+
+            <div class="row row-spacing">
+                <div class="col-lg-8">
+                    <div class="publicacion-style card-container-@item.Id">
+                        <div class="header">
+                            <img class="user-img" src="@item.ApplicationUser.Avatar" />
+                            <div class="username-container">
+                                <h3 class="username"><a href="@Url.Action("Account", "Home", new { item.ApplicationUser.UserName } )">@item.ApplicationUser.UserName</a></h3>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <img src="@item.Ruta" />
+                        </div>
+                        <div class="footer">
+                            <div class="footer-container">
+                                <div class="social-buttom">
+                                    <div class="social-buttom-wrapper">
+                                        @{ 
+                                            var isLiked = item.Likes.Where(u => u.ApplicationUserId.Equals(Model.ApplicationUser.Id)).FirstOrDefault();
+                                            var tagLiked = isLiked != null ? "glyphicon-heart" : "glyphicon-heart-empty";
+
+                                            var isArchived = Model.ApplicationUser.Archives.Where(a => a.FotoId.Equals(item.Id)).FirstOrDefault();
+                                            var tagArchived = isArchived != null ? "glyphicon-bookmark text-success" : "glyphicon-bookmark";
+                                            var archivedToolTip = isArchived != null ? "Publicación archivada" : "Archivar publicación";
+                                        }
+                                        <form asp-action="SaveLike" class="SaveLike" id="SaveLike-@item.Id" name="@item.Id " method="post" asp-controller="Like">
+                                            <input type="hidden" name="UserId" value="@Model.ApplicationUser.Id" />
+                                            <input type="hidden" name="FotoId" value="@item.Id" />
+                                            <span id="@item.Id" class="like-heart glyphicon @tagLiked like-btn"></span>
+                                            <button style="display:none;" type="submit" id="SaveLikeButtom-@item.Id"></button>
+                                        </form>
+
+                                        <form asp-action="ArchivePicture" asp-controller="Archive" class="SaveArchive" name="@item.Id" method="post">
+                                            <input type="hidden" name="ApplicationUserId" value="@Model.ApplicationUser.Id" />
+                                            <input type="hidden" name="FotoId" value="@item.Id" />
+                                            <span data-id="@item.Id" class="bookmark glyphicon  @tagArchived archive"></span>
+                                            <button style="display:none;" type="submit" id="ArchiveButtom-@item.Id"></button>
+                                        </form>
+
+
+                                    </div>
+                                    <div class="like-container">
+                                        <p>
+                                            <span class="like-counter-@item.Id">@item.Likes.Count()</span>
+                                            Me Gusta
+                                        </p>
+                                    </div>
+                                    <div class="description-container">
+                                        <div>
+                                            <p class="comment-item"><a class="username" href="#">@item.ApplicationUser.UserName</a>@item.Descripcion</p>
+                                        </div>
+                                    </div>
+                                    <div class="comments">
+
+                                        @{
+
+                                            if (item.Comments.Count() != 0)
+                                            {
+
+                                                foreach (var comment in item.Comments)
+                                                {
+                                                    string isCommentLiked = "glyphicon-heart-empty";
+                                                    if(comment.CommentLikes != null)
+                                                    {
+                                                        var isCommentLikeExists = comment.CommentLikes.Where(u => u.ApplicationUserId.Equals(Model.ApplicationUser.Id)).FirstOrDefault();
+                                                        isCommentLiked = isCommentLikeExists != null ? "glyphicon-heart" : "glyphicon-heart-empty";
+                                                    }
+
+                                                    <div>
+                                                        <p class="comment-item"><a class="username" href="@Url.Action("Account", "Home", new { comment.ApplicationUser.UserName } )">@comment.ApplicationUser.UserName</a>@comment.Text</p>
+                                                    </div>
+                                                    <div class="comment-like">
+                                                        <form asp-action="SaveCommentLike" class="SaveCommentLike" id="SaveCommentLike-@item.Id" name="@item.Id " method="post" asp-controller="CommentLike">
+                                                            <input type="hidden" name="UserId" value="@Model.ApplicationUser.Id" />
+                                                            <input type="hidden" name="FotoId" value="@item.Id" />
+                                                            <input type="hidden" name="CommentId" value="@comment.Id" />
+                                                            <button id="@item.Id" type="submit" ><i class="like-heart glyphicon @isCommentLiked"></i></button>
+                                                            @*<button style="display:none;" type="submit" id="SaveCommentLikeButtom-@item.Id"></button>*@
+                                                        </form>
+                                                    </div>
+                                                    @*else
+                                                        {
+                                                            int commentCount = item.CommentList.Count() - commentDefaultCount;
+                                                            String commentTextCount = commentCount > 1 ? $"Ver todos los {commentCount} comentarios" : "Ver el comentario";
+                                                            <div>
+                                                                <p class="comment-item"><a class="comment-link" href="#">@commentTextCount</a></p>
+                                                            </div>
+                                                        }*@
+
+
+                                                }
+                                            }
+
+                                        }
+                                        <!-- <div>
+                                            <p class="comment-item"><a class="username" href="#">mauriciorevollar</a>en algún momento pensé traerme un BB para evitar el tráfico de Lima, pero las trabas para traerlos en avión son muchísimas. Pese a que la batería regular es desmontable y cumple con la TSA, las aerolíneas no te dejan subirlas al avión. (Quizá lo quieras comentar en tu review)</p>
+                                        </div>
+                                           -->
+                                    </div>
+                                </div>
+                                <div class="comment-text">
+                                    <form asp-action="AddComment" id="Add-Comment-@item.Id" name="@item.Id" class="Add-Comment" asp-controller="Comment" method="post">
+                                        <input type="hidden" name="FotoId" asp-for="Comment.FotoId" value="@item.Id" />
+                                        <input type="hidden" name="UserId" asp-for="Comment.ApplicationUserId" value="@Model.ApplicationUser.Id" />
+                                        <input type="text" name="Text" autocomplete="off" asp-for="Comment.Text" placeholder="Agrega un comentario..." />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</section>
+<script>
+    //$(document).on('submit', '.SaveLike', function (e) {
+    //    e.preventDefault();
+
+    //    let formSubmited = $(`#SaveLike-${e.target.id}`);
+    //    console.log('Save post method')
+    //    console.log(formSubmited.action);
+    //    console.log(formSubmited.serialize());
+    //    $.post(formSubmited.action, formSubmited.serialize(), function (res) {
+    //        console.log(res);
+    //        if (res) loadActividad();
+    //    });
+
+    //});
+
+    //$(".like-heart").on('click', function (e) {
+    //    let submitId = e.target.id;
+    //    console.log(submitId);
+    //    $(`#SaveLikeButtom-${submitId}`).submit();
+    //});
+    ///*Cargar actividades en Actividad*/
+    //const loadActividad = () => {
+    //    let id = $("#actividad_user").val();
+    //    if (id) {
+
+    //        $('body').loadingModal({ text: 'Cargando...', animation: 'wanderingCubes' });
+    //        $("#actividad").load(`/Home/ActividadPartial/?id=${id}`);
+    //    }
+    //};
+    $('body').loadingModal('hide');
+</script>

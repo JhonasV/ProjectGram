@@ -36,6 +36,11 @@
     height: 35em;
 }
 
+.picture img{
+    width:100%;
+    height:100%;
+}
+
 .perfil-miniatura {
     width: 50px;
     height: 50px;
@@ -69,6 +74,7 @@
     margin:0 auto;
     list-style:none;
     width:100%;
+    padding:0;
 }
 
 .opciones_fotos li{
@@ -95,4 +101,9 @@
 
 .datos{
     border:5px solid #4cff00;
+}
+
+.disableDeleteOption {
+    pointer-events: none;
+    opacity: 0.4;
 }
