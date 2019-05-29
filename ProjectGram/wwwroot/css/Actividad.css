@@ -6,11 +6,15 @@
 .row-spacing{
     margin-top:60px;
 }
+
+@media only screen and (min-width: 660px){
 .publicacion-style {
     width: 616px;
     border: 1px solid #eee;
     background-color:#fff;
 }
+}
+
 
 .publicacion-style .header{
     width:100%;
@@ -107,17 +111,37 @@
 }
 
 
-.publicacion-style .comments{
-    display:block;
-   
-    height: auto;
+/*.publicacion-style .comments{
+    display:flex;
+    align-content:space-between;
+    flex-direction:column;
+}*/
+.comment-box{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
 }
-.publicacion-style .comments .username{
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
-    text-transform:lowercase;
-    padding-right:3px;
+.like-heart-btn{
+    background-color:#fff;
+    border:none;
+    border-color:none;
+    font-size:20px;
+}
+.comments-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.comment-text-wrapper{
+    width:90%;
+}
+.publicacion-style .comments .username {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    text-transform: lowercase;
+    padding-right: 3px;
 }
 
 .publicacion-style .comments div{

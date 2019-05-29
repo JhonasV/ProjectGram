@@ -94,10 +94,13 @@
     height:100%;
 }
 
-.modal-foto{
+@media only screen and (min-width: 720px) {
+    .modal-foto{
     width:60%;
     height:60%;
+    }
 }
+
 
 .datos{
     border:5px solid #4cff00;

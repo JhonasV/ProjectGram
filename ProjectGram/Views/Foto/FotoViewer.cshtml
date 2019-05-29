@@ -15,7 +15,7 @@
             {
                 <div class="col-sm-4">
                     <div class="card" style="width: 22rem;">
-                        <img class="card-img-top hover foto-detail-viewer" name="@foto.Id" style="width:292px; height:292px;" src="@foto.Ruta" />
+                        <img class="card-img-top hover foto-detail-viewer" name="@foto.Id" src="@foto.Ruta" />
                         <div class="card-body">
                             @{
                                 if (foto.ApplicationUserId.Equals(Model.CurrentUser.Id))
@@ -34,8 +34,8 @@
 
     <div class="modal fade" id="fotoViewerDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-foto" role="document">
-            <div class="modal-content">
-                <div class="row">
+            <div class="modal-content" id="modal-picture-content">
+                @*<div class="row">
                     <div class="col-sm-8 no-padding-right">
                         <div class="modal-body no-padding border-right">
                             <img class="picture full-size-picture" id="picture-modal" src="" />
@@ -57,7 +57,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
+
                 @*<div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>*@

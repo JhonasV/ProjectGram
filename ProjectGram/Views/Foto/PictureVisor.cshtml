@@ -1,0 +1,42 @@
+﻿@model Foto
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+    <div class="row">
+        <div class="col-sm-8 no-padding-right">
+            <div class="modal-body no-padding border-right">
+                <img class="picture full-size-picture" id="picture-modal" src="@Model.Ruta" />
+            </div>
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <div class="modal-body no-padding">
+                <div class="publicacion-style foto-viewer-user">
+                    <div class="header border-bottom">
+                        <img class="user-img" id="user-img" src="@Model.ApplicationUser.Avatar" />
+                        <div class="username-container">
+                            <h3 class="username"><a id="nickname-foto">@Model.ApplicationUser.UserName</a></h3>
+                        </div>
+                    </div>
+
+                    <ul id="comment-item-container" class="comment-item-wrapper">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li>
+                                <div class='header'>
+                                    <img class="user-img" style='margin-right:5px;' src="@comment.ApplicationUser.Avatar" />
+                                    <p class="comment-item">
+                                        <a class="username" style='margin-right:5px;' href="/Home/Account/?UserName=@comment.ApplicationUser.UserName">
+                                            @comment.ApplicationUser.UserName
+                                        </a>@comment.Text
+                                    </p>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

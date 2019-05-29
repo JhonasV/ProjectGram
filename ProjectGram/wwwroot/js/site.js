@@ -32,8 +32,6 @@
             let ruta = fotoUploader.attr('src');
             if (ruta) {
                 previewImg.setAttribute('src', ruta);
-                //previewImg.setAttribute('heigh', ruta);
-                //$(previewImg).attr('src', ruta);
                 elemento.append(previewImg);
             }
         }
@@ -360,7 +358,7 @@ const drawLikeCounter = (fotoId, count) => {
         let archiveForm = $(`#ArchiveButtom-${id}`);
         archiveForm.submit();
     });
-
+ 
     $(document).on('submit', '.SaveArchive', function (e) {
         e.preventDefault();
         let archiveForm = $(this);
@@ -371,58 +369,21 @@ const drawLikeCounter = (fotoId, count) => {
         });
     });
 
-    $(document).on('click', '.foto-detail-viewer', (e) => {
+$(document).on('click', '.foto-detail-viewer', (e) => {
+        const modal_body = $('#modal-picture-content');
+        modal_body.empty();
         let fotoModal = $('#fotoViewerDetails');
-        let fotoId = e.target.name;
-
-        let pictureModalImg = $('#picture-modal');
-        //let modalTitleP = $('#modal-title');
-        let modalContentDiv = $('.modal-content');
-        let userImage = $('#user-img');
-        let nickNameA = $('#nickname-foto');
+        let fotoId = e.target.name;        
+        $('body').loadingModal({ text: 'Cargando...', 'animation': 'wanderingCubes' });
         
-
-        pictureModalImg.removeAttr('src');
-        userImage.removeAttr('src');
-        nickNameA.removeAttr('href');
-
-        //modalTitleP.empty();
-
-        modalContentDiv.loadingModal({ text: 'Cargando...', 'animation': 'wanderingCubes' });
+        modal_body.load(`/Foto/PictureVisor/?fotoId=${fotoId}`)
         fotoModal.modal('show');
-
-        $.post('/Foto/GetFoto', { id: fotoId }, function (res) {
-            pictureModalImg.attr('src', res.ruta);
-            userImage.attr('src', res.applicationUser.avatar);
-            nickNameA.attr('href', `/Home/Account?UserName=${res.applicationUser.userName}`);
-            nickNameA.html(res.applicationUser.userName);
-            //modalTitleP.html(res.descripcion);
-            drawComments(res.comments);
-            modalContentDiv.loadingModal('hide');
-        });
+        $('body').loadingModal('hide');
+    
 
     });
 
-    const drawComments = (comments) => {
-        let commentItemContainer = $('#comment-item-container');
-        let content = '';
-        comments.forEach((comment) => {
-            console.log(comment);
-            let avatar = comment.applicationUser ? comment.applicationUser.avatar : '/images/avatar.jpeg';
-            content = content +
-                    `<li>
-                        <div class='header'>
-                            <img class="user-img" style='margin-right:5px;' src="${avatar}" />
-                            <p class="comment-item">
-                                <a class="username" style='margin-right:5px;' href="/Home/Account/?UserName=${comment.applicationUser.userName}">
-                                ${comment.applicationUser.userName}
-                                </a>${comment.text}
-                            </p>
-                        </div>
-                    </li>`;
-        });
-        commentItemContainer.html(content);
-    };
+   
 
 
 

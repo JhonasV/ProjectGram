@@ -37,6 +37,7 @@ namespace ProjectGram.Services.Repositories
                 _context.Foto.Remove(detalles);
                 await _context.SaveChangesAsync();
                 success = true;
+
             }
             catch (Exception)
             {
@@ -133,14 +134,28 @@ namespace ProjectGram.Services.Repositories
 
                 detalles.ForEach(d =>
                 {
-                    d.Comments.ForEach(async c =>
+                    d.Comments.ForEach( c =>
                     {
-                        c.CommentLikes = await _context
+                        c.CommentLikes =  _context
                         .CommentLikes
                         .Where(cm => cm.CommentId.Equals(c.Id))
-                        .ToListAsync();
+                        .ToList();
                     });
                 });
+
+                //detalles.ForEach(d =>
+                //{
+                //    d.Comments.ForEach(c =>
+                //    {
+                //        c.CommentLikes.ForEach(cl =>
+                //       {
+                //           if (cl.ApplicationUserId != null)
+                //           {
+
+                //           }
+                //       });
+                //    });
+                //});
                 }
                 catch (Exception e)
                 {

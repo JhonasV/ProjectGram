@@ -53,7 +53,7 @@ namespace ProjectGram.Infraestructure
                         NotificationType = notificationType
                     };
 
-                    await _notificationRepository.SaveNotification(notification);
+                     //await _notificationRepository.SaveNotification(notification);
 
                     var likeNotification = new
                     {

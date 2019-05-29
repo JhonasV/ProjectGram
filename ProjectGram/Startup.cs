@@ -45,7 +45,7 @@ namespace ProjectGram
             services.AddTransient<IArchiveRepository, ArchiveRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICommentLikeRepository, CommentLikeRepository>();
-            services.AddTransient<INotificationRepository, NotificationRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<GramDbContext>()

@@ -56,36 +56,40 @@
                                     </div>
                                     <div class="description-container">
                                         <div>
-                                            <p class="comment-item"><a class="username" href="#">@item.ApplicationUser.UserName</a>@item.Descripcion</p>
+                                            <p class="comment-item"><a class="username" asp-action="Account" asp-controller="Home" asp-route-UserName="@item.ApplicationUser.UserName">@item.ApplicationUser.UserName</a>@item.Descripcion</p>
                                         </div>
                                     </div>
                                     <div class="comments">
+                                        @*<div class="comments-content">*@
+                                            @{
 
-                                        @{
-
-                                            if (item.Comments.Count() != 0)
-                                            {
-
-                                                foreach (var comment in item.Comments)
+                                                if (item.Comments.Count() != 0)
                                                 {
-                                                    string isCommentLiked = "glyphicon-heart-empty";
-                                                    if(comment.CommentLikes != null)
-                                                    {
-                                                        var isCommentLikeExists = comment.CommentLikes.Where(u => u.ApplicationUserId.Equals(Model.ApplicationUser.Id)).FirstOrDefault();
-                                                        isCommentLiked = isCommentLikeExists != null ? "glyphicon-heart" : "glyphicon-heart-empty";
-                                                    }
 
-                                                    <div>
-                                                        <p class="comment-item"><a class="username" href="@Url.Action("Account", "Home", new { comment.ApplicationUser.UserName } )">@comment.ApplicationUser.UserName</a>@comment.Text</p>
-                                                    </div>
-                                                    <div class="comment-like">
-                                                        <form asp-action="SaveCommentLike" class="SaveCommentLike" id="SaveCommentLike-@item.Id" name="@item.Id " method="post" asp-controller="CommentLike">
-                                                            <input type="hidden" name="UserId" value="@Model.ApplicationUser.Id" />
-                                                            <input type="hidden" name="FotoId" value="@item.Id" />
-                                                            <input type="hidden" name="CommentId" value="@comment.Id" />
-                                                            <button id="@item.Id" type="submit" ><i class="like-heart glyphicon @isCommentLiked"></i></button>
-                                                            @*<button style="display:none;" type="submit" id="SaveCommentLikeButtom-@item.Id"></button>*@
-                                                        </form>
+                                                    foreach (var comment in item.Comments.OrderByDescending(c => c.Created_at))
+                                                    {
+                                                        string isCommentLiked = "glyphicon-heart-empty";
+                                                        if (comment.CommentLikes != null)
+                                                        {
+
+                                                            var isCommentLikeExists = comment.CommentLikes.Where(u => u.ApplicationUserId.Equals(Model.ApplicationUser.Id)).FirstOrDefault();
+                                                            isCommentLiked = isCommentLikeExists != null ? "glyphicon-heart" : "glyphicon-heart-empty";
+                                                        }
+                                                        <div class="comment-box">
+
+                                                       
+                                                        <div class="comment-text-wrapper">
+                                                            <p class="comment-item"><a class="username" href="@Url.Action("Account", "Home", new { comment.ApplicationUser.UserName } )">@comment.ApplicationUser.UserName</a>@comment.Text</p>
+                                                        </div>
+                                                        <div class="comment-like">
+                                                            <form asp-action="SaveCommentLike" class="SaveCommentLike" id="SaveCommentLike-@item.Id" name="@item.Id " method="post" asp-controller="CommentLike">
+                                                                <input type="hidden" name="ApplicationUserId" value="@Model.ApplicationUser.Id" />
+                                                                <input type="hidden" name="FotoId" value="@item.Id" />
+                                                                <input type="hidden" name="CommentId" value="@comment.Id" />
+                                                                <button id="@item.Id" type="submit" class="like-heart-btn"><i class="like-heart glyphicon @isCommentLiked"></i></button>
+                                                                @*<button style="display:none;" type="submit" id="SaveCommentLikeButtom-@item.Id"></button>*@
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                     @*else
                                                         {
@@ -105,6 +109,7 @@
                                             <p class="comment-item"><a class="username" href="#">mauriciorevollar</a>en algún momento pensé traerme un BB para evitar el tráfico de Lima, pero las trabas para traerlos en avión son muchísimas. Pese a que la batería regular es desmontable y cumple con la TSA, las aerolíneas no te dejan subirlas al avión. (Quizá lo quieras comentar en tu review)</p>
                                         </div>
                                            -->
+                                             @*</div>*@
                                     </div>
                                 </div>
                                 <div class="comment-text">

@@ -22,22 +22,6 @@ namespace ProjectGram.Controllers
             _userRepository = userRepository;
             _userManager = userManager;
         }
-        FotoDAO dao = new FotoDAO();
-        //public IActionResult Index(UserViewModel mensaje)
-        //{
-        //    UserViewModel model = new UserViewModel();
-        //    int id = (int)HttpContext.Session.GetInt32("id");
-
-        //    User user = new User
-        //    {
-        //        Id = id
-        //    };
-           
-        //    model.User = new LoginDAO().GetUserById(id);
-        //    return View("Album", model);
-        //}
-
-
 
         public async Task<JsonResult> FotoPerfil(IFormFile formFile)
         {
@@ -127,6 +111,11 @@ namespace ProjectGram.Controllers
             return PartialView("FotoViewer", model);
         }
 
+        public async Task<PartialViewResult> PictureVisor(int fotoId)
+        {
+            var foto = await _fotoRepository.GetFotoById(fotoId);
+            return PartialView(foto);
+        }
         
     }
 }

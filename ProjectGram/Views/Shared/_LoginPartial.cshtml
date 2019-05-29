@@ -1,4 +1,5 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> _userManager
 @{
     if (!SignInManager.IsSignedIn(User))
     {
@@ -25,6 +26,8 @@
     }
     else
     {
+        var currentUser = _userManager.Users.FirstOrDefault();
+        var notifications = currentUser.Notifications;
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -43,28 +46,16 @@
 
                     </ul>
 
-                    <div class="notificacion-btn">
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a href="#" class="navbar-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="glyphicon glyphicon-bell"></i>
-                                    Notificaciones <span class="badge notification-flag badge-light"></span>
-                                </a>         
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Logout", "Account")">
-                                    <i class="glyphicon glyphicon-log-out"></i>
-                                    Cerrar Sesión
-                                </a>
-                            </li>
+                    <div class="notificacion-btn dropdown" style="margin-top:1em;">
+                        <a href="#" style="margin:0;padding:0;" class="navbar-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-bell"></i>
+                            Notificaciones <span class="badge notification-flag badge-light"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            
+                            <li><a href="#">Nuevo mensaje</a></li>
                         </ul>
-
+                        <a asp-action="Logout" asp-controller="Account">Cerrar Sesión</a>
                     </div>
 
                 </div>

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using ProjectGram.Infraestructure;
 using ProjectGram.Models;
 using ProjectGram.Models.Data;
 using ProjectGram.Services.Interfaces;
@@ -12,11 +14,12 @@ namespace ProjectGram.Services.Repositories
     public class NotificationRepository : INotificationRepository
     {
         private readonly GramDbContext _context;
-
-        public NotificationRepository(GramDbContext context)
+        private IHubContext<SignalRServer> _hubContext;
+        public NotificationRepository(GramDbContext context,  IHubContext<SignalRServer> _hubContext)
         {
             _context = context;
-        }
+            this._hubContext = _hubContext;
+       }
 
         public async Task<List<Notification>> GetNotifications(string currentUserId)
         {
@@ -40,9 +43,10 @@ namespace ProjectGram.Services.Repositories
             var isNotificationAdded = false;
             try
             {
-                await _context.Notifications.AddAsync(notification);
-                await _context.SaveChangesAsync();
+                 await _context.Notifications.AddAsync(notification);
+                 await _context.SaveChangesAsync();
                 isNotificationAdded = true;
+                SendClientNotification();
             }
             catch (Exception)
             {
@@ -50,6 +54,11 @@ namespace ProjectGram.Services.Repositories
                 throw;
             }
             return isNotificationAdded;
+        }
+
+        public void SendClientNotification()
+        {
+            _hubContext.Clients.All.SendAsync("Notifications");
         }
     }
 }
